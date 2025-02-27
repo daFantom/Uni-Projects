@@ -18,6 +18,8 @@ class Room:
         south = 0
         west = 0
 # End of Classes.
+
+# Function definition.
 def main():
     roomList = []
     room1 = Room()
@@ -32,8 +34,6 @@ def main():
     roomList.append(room5)
     room6 = Room()
     roomList.append(room6)
-# Function definition.
-
 # End of functions.
 
 # Variables go here.
