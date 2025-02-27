@@ -22,7 +22,7 @@ class Room:
 # Function definition.
 def main():
     room_list = []
-    room1 = Room("You encounter yourself at the Hallway. You have 1 passage to the north and south, 1 to the east and 1 to the west.",7,4,2,5) # Hallway has 5 rooms it can enter.
+    room1 = Room("You encounter yourself at the Hallway. You have 1 passage for each cardinal point, good luck!",7,4,2,5) # Hallway has 5 rooms it can enter.
     room_list.append(room1)
     room2 = Room("You're in the Bathroom, best to take a shower sooner than later! You have 2 entrances, south and east.",None,3,1,None) # Bathroom would be at the top left side of the map.
     room_list.append(room2)
@@ -40,8 +40,9 @@ def main():
     done = False
     while not done:
         print(room_list[current_room].description)
-        print("\n")
-        next_step =input("What is your next move?")
+        print(" ")
+        next_step =input("What is your next move?\n")
+# Case North:
         if(next_step.lower())=="north":
             next_room = room_list[current_room].north
             if None == next_room:
@@ -49,6 +50,37 @@ def main():
             else:
                 current_room = next_room
 
+# Case South:
+        elif(next_step.lower())=="south":
+            next_room = room_list[current_room].south
+            if None == next_room:
+                print("You cannot go that way, you don't have NoClip dummy!")
+            else:
+                current_room = next_room
+
+# Case East:
+        elif(next_step.lower())=="east":
+            next_room = room_list[current_room].east
+            if None == next_room:
+                print("You cannot go that way, you don't have NoClip dummy!")
+            else:
+                current_room = next_room
+
+# Case West:
+        elif(next_step.lower())=="west":
+            next_room = room_list[current_room].west
+            if None == next_room:
+                print("You cannot go that way, you don't have NoClip dummy!")
+            else:
+                current_room = next_room
+        else:
+            print("Huh? What do you mean? Learn to write.")
+
+        isdone = input("Are you done? Bored? Busy?")
+        if isdone.lower() == "yes" or isdone.lower() == "y":
+            done = True
+        else:
+            done = False
 
 # End of functions.
 
