@@ -1,2 +1,2 @@
-# Text-minigame
-Small project in order to practice OOP in python by making a small text-base room travelling game.
+# Welcome
+This is where I store all my uni projects for classes.
