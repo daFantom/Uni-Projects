@@ -11,8 +11,9 @@ Here we will be using the Arcade Window class.
 import arcade
 
 # --- Constant Variables ---
-SCREEN_WIDTH = 900
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 900 # Added at the start of the program
+SCREEN_HEIGHT = 600 # Added at the start of the program
+MOV_SPEED = 3 # Added at 13:31, 06/03/2025
 
 # --- Variables ---
 
@@ -25,7 +26,7 @@ class MyGame(arcade.Window):
 # Calling the parent class(arcade.Window class) __init__
         super().__init__(width, height, title)
 # Instant creation of the YTBLoadingScreen object.
-        self.YTBLoadScreen = YTBLoadingScreen()
+        self.YTBLoadScreen = YTBLoadingScreen(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0, 0, 550, 350, 10)
 # Make the mouse not visible.
         self.set_mouse_visible(False)
 #Change in bg color
@@ -44,27 +45,40 @@ class MyGame(arcade.Window):
         Happens approx. 60 times per second(60 fps)."""
         self.YTBLoadScreen.pos_x = x
         self.YTBLoadScreen.pos_y = y
-
-
+# Detects if it hits the edge of the screen.
+        if self.YTBLoadScreen.pos_x > SCREEN_WIDTH-(self.YTBLoadScreen.width/2):
+            self.YTBLoadScreen.pos_x = SCREEN_WIDTH-(self.YTBLoadScreen.width/2)
+        elif self.YTBLoadScreen.pos_x < (self.YTBLoadScreen.width/2):
+            self.YTBLoadScreen.pos_x = (self.YTBLoadScreen.width/2)
+        if self.YTBLoadScreen.pos_y > SCREEN_HEIGHT - (self.YTBLoadScreen.height/2):
+            self.YTBLoadScreen.pos_y = SCREEN_HEIGHT - (self.YTBLoadScreen.height/2)
+        elif self.YTBLoadScreen.pos_y < (self.YTBLoadScreen.height/2):
+            self.YTBLoadScreen.pos_y =  (self.YTBLoadScreen.height/2)
 
 # Youtube Loading Screen Class
 
 
 
 class YTBLoadingScreen:
-    def __init__(self, pos_x:int=SCREEN_WIDTH/2, pos_y:int=SCREEN_HEIGHT/2):
+    def __init__(self, pos_x, pos_y, change_x, change_y, width, height, ball_radius):
         # Message shown after creating the object.
         print("Say hello to the ominous Youtube loading screen!")
         # Variables
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.change_x = change_x
+        self.change_y = change_y
+        self.width = width
+        self.height = height
+        self.ball_radius = ball_radius
+
 
 # Function that creates the bg from the YouTube video reproducer.
     def draw_ytb_bg(self):
-        arcade.draw_rectangle_filled(self.pos_x, self.pos_y, 550, 350, color=arcade.color.DARK_BLUE_GRAY)
-        arcade.draw_rectangle_filled(self.pos_x,self.pos_y, 500, 300, color=arcade.color.BLACK)
-        arcade.draw_rectangle_filled(self.pos_x, self.pos_y-100, 500, 10, color=arcade.color.GRAY)
-        arcade.draw_circle_filled(self.pos_x-230, self.pos_y-100, 10, color=arcade.color.RED)
+        arcade.draw_rectangle_filled(self.pos_x, self.pos_y, self.width, self.height, color=arcade.color.DARK_BLUE_GRAY)
+        arcade.draw_rectangle_filled(self.pos_x, self.pos_y, self.width - 50, self.height - 50,color=arcade.color.BLACK)
+        arcade.draw_rectangle_filled(self.pos_x, self.pos_y - 100, self.width - 50, self.height - 340,color=arcade.color.GRAY)
+        arcade.draw_circle_filled(self.pos_x - 150, self.pos_y - 100, self.ball_radius, color=arcade.color.RED)
 
 
 
@@ -75,9 +89,10 @@ class YTBLoadingScreen:
 
 
 
+
 # --- Function definitions ---
 def main():
-    window = MyGame(900,600,"Drawing Example")
+    window = MyGame(900,600,"La pantalla de shutú se mueve con el maldito ratón")
     arcade.run()
 
 
