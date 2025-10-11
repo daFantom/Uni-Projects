@@ -2,6 +2,8 @@
 #include <string.h>
 #include <math.h>
 
+// Test Hello World
+
 int main(){
     /* In order to do math functions, we must include the <math.h> header / library. Otherwise, we'd have an error.*/
 
@@ -46,4 +48,5 @@ int main(){
     res = tan(y); // Returns the tangent of x. Same issue as sine.
     printf("\t\ttan(x): %f\n\n",res);
     return 0;
+
 }
