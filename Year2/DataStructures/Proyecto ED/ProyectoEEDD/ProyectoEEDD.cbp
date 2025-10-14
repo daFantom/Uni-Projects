@@ -35,9 +35,7 @@
 		<Unit filename="editorial.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="editorial.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="editorial.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
