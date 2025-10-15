@@ -1,13 +1,12 @@
 #include <ctime>
 #include <iostream>
+#include "editorial.h"
 // ====================== METODOS COLA ======================
 
-//Destructor
-Cola::~Cola()
-{
+//Destructor Cola
+Cola::~Cola(){
     while(frente) desencolar();
-}
-
+};
 
 //Añadir elemento en la cola
 void Cola::encolar(Pedido v)
@@ -44,7 +43,7 @@ Pedido Cola::desencolar()
 // ====================== METODOS PILA ======================
 
 //Destructor de la Pila
-Pila::~Pila()
+Pila::destrucPila()
 {
     while(cima) desapilar();
 }
@@ -56,7 +55,7 @@ void Pila::apilar(Pedido v)
     nuevo = new Nodo(v, cima);
 //El comienzo de la pila es el nuevo nodo
     cima = nuevo;
-}
+};
 
 //Sacar elemento de la Pila
 Pedido Pila::desapilar()
@@ -77,8 +76,9 @@ Pedido Pila::desapilar()
 }
 
 // GENERAR PEDIDOS ALEATORIOS.
-pedido genPedido(void){
+Pedido genPedido(void){
     srand(time(NULL));
+    int amount = rand()%20 + 1;
     char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
     int numaleat1,numaleat2;
     char letraAleat;
@@ -93,8 +93,13 @@ pedido genPedido(void){
     return p;
 }
 
-//FUNCION PARA METER LOS PEDIDOS SOLICITADOS EN UNA LISTA.
-void listaPedidos(int pedidos){
-
+bool esVacia(Cola c){
+    if (c.frente->siguiente==NULL){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
+
 
