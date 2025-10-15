@@ -9,7 +9,6 @@
 #define LIBRERIAS 6
 #define CAP_CAJA 5
 // FIN CONSTANTES
-
 using namespace std;
 string estado[5] = {"Iniciado","Almacen","Imprenta","Listo","Caja"};
 struct Pedido{
@@ -20,6 +19,7 @@ struct Pedido{
     int cantidad;
     string estado;
 };
+
 struct pedido_stock{
     string cod_libro;
     int unidades;
@@ -63,13 +63,11 @@ private:
     pNodo cima;
 public:
     Pila() : cima(NULL) {} //Constructor de la Pila
-    ~Pila();
+    destrucPila();
     void apilar(Pedido v);
     Pedido desapilar();
 };
-
-//DECLARACION DE FUNCIONES DE EDITORIAL.CPP
-Cola colaPedidos(int);
+Pedido genPedido(void);
 bool esVacia(Cola);
 
 #endif // EDITORIAL_H_INCLUDED

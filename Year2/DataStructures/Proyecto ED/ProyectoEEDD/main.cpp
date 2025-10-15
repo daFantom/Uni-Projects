@@ -1,12 +1,11 @@
 #include <iostream>
-#include "editorial.h"
 #include <string.h>
-
+#include "editorial.h"
 using namespace std;
 
 int main(){
     int op, amount;
-
+    Cola QIniciado;
     cout << "Simulacion: Editorial"<< endl << endl;
     do{
         cout << "===== MENU =====" << endl;
@@ -23,12 +22,25 @@ int main(){
         case 1:
            cout << "Cantida de pedidos a generar: ";
            cin >> amount;
+           cout << "Generando "<<amount<<" pedidos..."<<endl;
+           for(int i=0; i<amount;i++){
+            Pedido p = genPedido();
+            QIniciado.encolar(p);
+           }
+           Cola qaux = QIniciado;
+           cout << "QIniciado:" << endl;
+           cout<<"------------------------"<<endl;
+           cout<<
+
             break;
         case 2:
             cout << "Funciona" << endl;
             break;
         case 3:
-            cout << "Funciona" << endl;
+            while (!esVacia(QIniciado)){
+                Pedido aux = QIniciado.desencolar();
+                cout << "Desencolando: " <<aux.id_pedido<< endl;
+            }
             break;
         case 4:
             cout << "Funciona" << endl;

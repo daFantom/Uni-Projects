@@ -3,23 +3,21 @@
 #include "editorial.h"
 // ====================== METODOS COLA ======================
 
-//Destructor
-Cola::destrucCola()
-{
+//Destructor Cola
+Cola::~Cola(){
     while(frente) desencolar();
-}
+};
 
-
-//Añadir elemento en la cola
+//Aï¿½adir elemento en la cola
 void Cola::encolar(Pedido v)
 {
     pNodo nuevo;
     nuevo = new Nodo(v); // Se crea un nodo nuevo
-// Si cola no vacía, se añade el nuevo a continuación de ultimo
+// Si cola no vacï¿½a, se aï¿½ade el nuevo a continuaciï¿½n de ultimo
     if(final) final->siguiente = nuevo;
-//El último elemento de la cola es el nuevo nodo
+//El ï¿½ltimo elemento de la cola es el nuevo nodo
     final= nuevo;
-// Si frente es NULL, la cola está vacía y el nuevo nodo pasa a ser el primero
+// Si frente es NULL, la cola estï¿½ vacï¿½a y el nuevo nodo pasa a ser el primero
     if(!frente) frente = nuevo;
 }
 
@@ -32,12 +30,12 @@ Pedido Cola::desencolar()
     nodo = frente;
     Pedido ped_vacio = {0,"","","",0,""};
     if(!nodo) return ped_vacio; // Si no hay nodos en la pila se devuelve 0
-//Se asigna a frente la dirección del segundo nodo
+//Se asigna a frente la direcciï¿½n del segundo nodo
     frente = nodo->siguiente;
 //Se guarda el valor de retorno
     v = nodo->valor;
     delete nodo; // Se borra el nodo
-// Si cola vacía, ultimo debe ser NULL también
+// Si cola vacï¿½a, ultimo debe ser NULL tambiï¿½n
     if(!frente) final = NULL;
     return v;
 }
@@ -46,7 +44,7 @@ Pedido Cola::desencolar()
 // ====================== METODOS PILA ======================
 
 //Destructor de la Pila
-Pila::~Pila()
+Pila::destrucPila()
 {
     while(cima) desapilar();
 }
@@ -58,7 +56,7 @@ void Pila::apilar(Pedido v)
     nuevo = new Nodo(v, cima);
 //El comienzo de la pila es el nuevo nodo
     cima = nuevo;
-}
+};
 
 //Sacar elemento de la Pila
 Pedido Pila::desapilar()
@@ -81,6 +79,7 @@ Pedido Pila::desapilar()
 // GENERAR PEDIDOS ALEATORIOS.
 Pedido genPedido(void){
     srand(time(NULL));
+    int amount = rand()%20 + 1;
     char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
     int numaleat1,numaleat2;
     char letraAleat;
