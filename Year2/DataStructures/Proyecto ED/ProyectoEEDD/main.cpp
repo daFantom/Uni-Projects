@@ -3,10 +3,10 @@
 using namespace std;
 
 int main(){
-    int op;
+    int op, amount;
+    cout << "Simulacion: Editorial"<< endl << endl;
     do{
-        cout << "Simulacion: pedidos a una pizzeria." << endl;
-        cout << "=== MENU ===" << endl;
+        cout << "===== MENU =====" << endl;
         cout << "1) Generar N pedidos" << endl;
         cout << "2) Paso (una FASE)" << endl;
         cout << "3) Mostrar estado sistema" << endl;
@@ -18,8 +18,9 @@ int main(){
             cout << "Saliendo..." << endl;
             break;
         case 1:
-           cout << "Introcuzca el numeor de pedidos" << endl;
-
+           cout << "Cantida de pedidos a generar: ";
+           cin >> amount;
+           cout << amount << endl;
             break;
         case 2:
             cout << "Funciona" << endl;
