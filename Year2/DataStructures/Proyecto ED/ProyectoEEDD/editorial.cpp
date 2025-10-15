@@ -101,3 +101,9 @@ pedido genPedido(void){
     Pedido p = {rand()%6,id_pedido,cod_libro,materia,amount,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return p;
 }
+
+//FUNCION PARA METER LOS PEDIDOS SOLICITADOS EN UNA LISTA.
+void listaPedidos(int pedidos){
+
+}
+

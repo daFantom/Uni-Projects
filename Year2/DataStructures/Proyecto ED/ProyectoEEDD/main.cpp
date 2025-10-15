@@ -18,7 +18,8 @@ int main(){
             cout << "Saliendo..." << endl;
             break;
         case 1:
-           cout << "Funciona" << endl;
+           cout << "Introcuzca el numeor de pedidos" << endl;
+
             break;
         case 2:
             cout << "Funciona" << endl;
