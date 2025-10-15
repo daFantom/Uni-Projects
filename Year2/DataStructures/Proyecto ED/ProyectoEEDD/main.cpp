@@ -23,7 +23,7 @@ int main(){
             cout << "Saliendo..." << endl;
             break;
         case 1:
-            cout << "Cantida de pedidos a generar: ";
+            cout << "Cantidad de pedidos a generar: ";
             cin >> amount;
             cout << "Generando "<<amount<<" pedidos..."<<endl;
             for(int i=0; i<amount;i++){
