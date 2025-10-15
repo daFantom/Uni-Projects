@@ -1,11 +1,14 @@
 #include <iostream>
 #include <string.h>
 #include "editorial.h"
+#include <iomanip>
+
 using namespace std;
 
 int main(){
     int op, amount;
-    Cola QIniciado;
+    Cola QIniciado, QAlmacen, QImprenta, QListo;
+    Pila cajas;
     cout << "Simulacion: Editorial"<< endl << endl;
     do{
         cout << "===== MENU =====" << endl;
@@ -20,26 +23,63 @@ int main(){
             cout << "Saliendo..." << endl;
             break;
         case 1:
-           cout << "Cantida de pedidos a generar: ";
-           cin >> amount;
-           cout << "Generando "<<amount<<" pedidos..."<<endl;
-           for(int i=0; i<amount;i++){
-            Pedido p = genPedido();
-            QIniciado.encolar(p);
-           }
-           Cola qaux = QIniciado;
-           cout << "QIniciado:" << endl;
-           cout<<"------------------------"<<endl;
-           cout<<
-
+            cout << "Cantida de pedidos a generar: ";
+            cin >> amount;
+            cout << "Generando "<<amount<<" pedidos..."<<endl;
+            for(int i=0; i<amount;i++){
+                Pedido p = genPedido();
+                QIniciado.encolar(p);
+            }
+            Cola qaux = QIniciado;
+            cout<< "QIniciados:"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout<<setw(4)<<"Lib"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            while (!esVacia(qaux)){
+                Pedido p = qaux.desencolar();
+                cout<<setw(4)<<p.id_editorial<<"|"<<setw(8)<<p.cod_libro<<"|"<<setw(12)<<p.materia<<"|"<<setw(4)<<p.cantidad<<"|"<<setw(10)<<p.estado<<"|"<<endl;
+            }
             break;
         case 2:
-            cout << "Funciona" << endl;
+            cout << "Funciona"<<endl;
             break;
         case 3:
-            while (!esVacia(QIniciado)){
-                Pedido aux = QIniciado.desencolar();
-                cout << "Desencolando: " <<aux.id_pedido<< endl;
+            Cola qaux;
+            qaux = QIniciado;
+            cout<< "QIniciados:"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout<<setw(4)<<"Lib"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            while (!esVacia(qaux)){
+                Pedido p = qaux.desencolar();
+                cout<<setw(4)<<p.id_editorial<<"|"<<setw(8)<<p.cod_libro<<"|"<<setw(12)<<p.materia<<"|"<<setw(4)<<p.cantidad<<"|"<<setw(10)<<p.estado<<"|"<<endl;
+            }
+            qaux = QAlmacen;;
+            cout << "QAlmacen:"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout<<setw(4)<<"Lib"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            while (!esVacia(qaux)){
+                Pedido p = qaux.desencolar();
+                cout<<setw(4)<<p.id_editorial<<"|"<<setw(8)<<p.cod_libro<<"|"<<setw(12)<<p.materia<<"|"<<setw(4)<<p.cantidad<<"|"<<setw(10)<<p.estado<<"|"<<endl;
+            }
+            qaux = QImprenta;
+            cout << "QImprenta:"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout<<setw(4)<<"Lib"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            while (!esVacia(qaux)){
+                Pedido p = qaux.desencolar();
+                cout<<setw(4)<<p.id_editorial<<"|"<<setw(8)<<p.cod_libro<<"|"<<setw(12)<<p.materia<<"|"<<setw(4)<<p.cantidad<<"|"<<setw(10)<<p.estado<<"|"<<endl;
+            }
+            qaux = QListo;
+            cout << "QListo:"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            cout<<setw(4)<<"Lib"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
+            cout<<"-------------------------------------------"<<endl;
+            while (!esVacia(qaux)){
+                Pedido p = qaux.desencolar();
+                cout<<setw(4)<<p.id_editorial<<"|"<<setw(8)<<p.cod_libro<<"|"<<setw(12)<<p.materia<<"|"<<setw(4)<<p.cantidad<<"|"<<setw(10)<<p.estado<<"|"<<endl;
             }
             break;
         case 4:

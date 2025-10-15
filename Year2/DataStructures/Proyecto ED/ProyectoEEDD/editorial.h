@@ -49,7 +49,7 @@ class Cola
 {
 public:
     Cola() : frente(NULL), final(NULL) {}
-    destrucCola();
+    ~Cola();
     void encolar(Pedido v);
     Pedido desencolar();
 private:
@@ -63,7 +63,7 @@ private:
     pNodo cima;
 public:
     Pila() : cima(NULL) {} //Constructor de la Pila
-    destrucPila();
+    ~Pila();
     void apilar(Pedido v);
     Pedido desapilar();
 };

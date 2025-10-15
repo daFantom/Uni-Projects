@@ -44,7 +44,7 @@ Pedido Cola::desencolar()
 // ====================== METODOS PILA ======================
 
 //Destructor de la Pila
-Pila::destrucPila()
+Pila::~Pila()
 {
     while(cima) desapilar();
 }
@@ -90,7 +90,6 @@ Pedido genPedido(void){
     string id_pedido = "P"+to_string(rand()%99999); // el rand() representa la parte numerica del codigo.
     string cod_libro = to_string(numaleat1)+letraAleat+to_string(numaleat2);
     string materia = materias[rand()%(sizeof(materias)/sizeof(materias[0]))]; // Dividimos la longitud del array (en bytes) con la longitud del primer elemenento para que nos devuelva la cantidad de elementos del array.
-    int amount;
     Pedido p = {rand()%6,id_pedido,cod_libro,materia,amount,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return p;
 }
