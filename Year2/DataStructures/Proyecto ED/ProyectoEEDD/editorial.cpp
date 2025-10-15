@@ -1,9 +1,10 @@
 #include <ctime>
 #include <iostream>
+#include "editorial.h"
 // ====================== METODOS COLA ======================
 
 //Destructor
-Cola::~Cola()
+Cola::destrucCola()
 {
     while(frente) desencolar();
 }
@@ -41,6 +42,7 @@ Pedido Cola::desencolar()
     return v;
 }
 
+
 // ====================== METODOS PILA ======================
 
 //Destructor de la Pila
@@ -77,7 +79,7 @@ Pedido Pila::desapilar()
 }
 
 // GENERAR PEDIDOS ALEATORIOS.
-pedido genPedido(void){
+Pedido genPedido(void){
     srand(time(NULL));
     char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
     int numaleat1,numaleat2;
@@ -89,12 +91,24 @@ pedido genPedido(void){
     string id_pedido = "P"+to_string(rand()%99999); // el rand() representa la parte numerica del codigo.
     string cod_libro = to_string(numaleat1)+letraAleat+to_string(numaleat2);
     string materia = materias[rand()%(sizeof(materias)/sizeof(materias[0]))]; // Dividimos la longitud del array (en bytes) con la longitud del primer elemenento para que nos devuelva la cantidad de elementos del array.
+    int amount;
     Pedido p = {rand()%6,id_pedido,cod_libro,materia,amount,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return p;
 }
 
-//FUNCION PARA METER LOS PEDIDOS SOLICITADOS EN UNA LISTA.
-void listaPedidos(int pedidos){
+//FUNCION PARA SABER SI COLA VACIA
+bool esVacia(Cola c){
+    if (c.frente == NULL){
+        return true;
+    }
+    else{
+         return false;
+    }
 
 }
+//FUNCION PARA PINTAR PEDIDOS INICIALIZADOS
+void pintarPedidosIni(Cola cola){
+
+}
+
 

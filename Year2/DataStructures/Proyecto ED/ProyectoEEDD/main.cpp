@@ -1,9 +1,12 @@
 #include <iostream>
+#include "editorial.h"
+#include <string.h>
 
 using namespace std;
 
 int main(){
     int op, amount;
+
     cout << "Simulacion: Editorial"<< endl << endl;
     do{
         cout << "===== MENU =====" << endl;
@@ -20,7 +23,6 @@ int main(){
         case 1:
            cout << "Cantida de pedidos a generar: ";
            cin >> amount;
-           cout << amount << endl;
             break;
         case 2:
             cout << "Funciona" << endl;
@@ -36,4 +38,5 @@ int main(){
         }
     }while(op!=0);
     return 0;
+
 }
