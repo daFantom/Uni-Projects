@@ -102,7 +102,6 @@ bool esVacia(Cola c){
     else{
          return false;
     }
-
 }
 //FUNCION PARA PINTAR PEDIDOS INICIALIZADOS
 void pintarPedidosIni(Cola cola){
