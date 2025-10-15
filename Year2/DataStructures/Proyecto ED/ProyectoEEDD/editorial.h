@@ -1,5 +1,6 @@
 #ifndef EDITORIAL_H_INCLUDED
 #define EDITORIAL_H_INCLUDED
+
 // CONSTANTES
 #define MAX_TITULOS 10
 #define N_PEDIDOS_PASO 12
@@ -18,8 +19,7 @@ struct Pedido{
     string estado;
 };
 struct pedido_stock{
-    string cod_libro;
-    string materia;
+    string cod_libro;esk
     int unidades;
 };
 //pedido_stock stock[MAX_TITULOS]
