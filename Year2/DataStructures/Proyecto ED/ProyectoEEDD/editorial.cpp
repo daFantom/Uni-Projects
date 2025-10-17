@@ -115,5 +115,4 @@ void printQueue(Cola &c){
                 cout<<setw(4)<<p_aux.id_editorial<<"|"<<setw(10)<<p_aux.id_pedido<<"|"<<setw(8)<<p_aux.cod_libro<<"|"<<setw(12)<<p_aux.materia<<"|"<<setw(4)<<p_aux.cantidad<<"|"<<setw(10)<<p_aux.estado<<"|"<<endl;
         }
     }
-    cout<<endl;
 }
