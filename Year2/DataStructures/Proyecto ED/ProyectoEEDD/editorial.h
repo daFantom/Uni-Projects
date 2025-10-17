@@ -1,6 +1,9 @@
 #ifndef EDITORIAL_H_INCLUDED
 #define EDITORIAL_H_INCLUDED
 
+#include <iostream>
+using namespace std;
+
 
 // CONSTANTES
 #define MAX_TITULOS 10
@@ -10,7 +13,7 @@
 #define CAP_CAJA 5
 // FIN CONSTANTES
 using namespace std;
-string estado[5] = {"Iniciado","Almacen","Imprenta","Listo","Caja"};
+
 struct Pedido{
     int id_editorial;
     string id_pedido;
@@ -52,6 +55,7 @@ public:
     ~Cola();
     void encolar(Pedido v);
     Pedido desencolar();
+    bool esVacia();
 private:
     pNodo frente, final;
 };
@@ -67,7 +71,8 @@ public:
     void apilar(Pedido v);
     Pedido desapilar();
 };
+
 Pedido genPedido(void);
-bool esVacia(Cola);
+void printQueue(Cola&);
 
 #endif // EDITORIAL_H_INCLUDED

@@ -32,9 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="editorial.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="editorial.cpp" />
 		<Unit filename="editorial.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
