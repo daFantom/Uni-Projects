@@ -74,5 +74,6 @@ public:
 
 Pedido genPedido(void);
 void printQueue(Cola&);
+void cambiarEstado(Pedido&,Cola&,Pila&);
 
 #endif // EDITORIAL_H_INCLUDED

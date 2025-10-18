@@ -1,6 +1,7 @@
 #include <ctime>
 #include <iostream>
 #include <iomanip>
+#include <string.h>
 #include "editorial.h"
 
 // ====================== METODOS COLA ======================
@@ -116,3 +117,21 @@ void printQueue(Cola &c){
         }
     }
 }
+
+//CAMBIAR ESTADO(SOLO PARA UN PEDIDO)
+void cambiarEstado (Pedido &p, Cola &c, Pila &pila){//asi se reutiliza para cada uno de los "case" del main pasandole la cola siguiente. Y el pedido es el resultante de desencolar de la cola de la fase anterior.
+    string e = p.estado;
+    if (e.compare("Iniciado")==0){
+        p.estado = "Almacen";
+        c.encolar(p);
+    }
+    if (e.compare("Almacen")==0){
+        p.estado = "Listo";
+        c.encolar(p);
+    }
+    if (e.compare("Listo")==0){
+        p.estado = "Caja";
+        pila.apilar(p);
+    }
+}
+
