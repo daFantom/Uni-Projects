@@ -20,7 +20,6 @@ int main(){
     Pila c0,c1,c2,c3,c4,c5;
     Cola caux = QIniciado;//variable del case 2
     Pedido paux;//variable del case 2
-    int numLib;
     pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK (no sirve para nada por ahora)
     cout << "Simulacion: Editorial"<< endl << endl;             // Menu inicial del usuario.
     do{
@@ -53,6 +52,12 @@ int main(){
                 break;
             case 2:
                 cout << "Funciona"<<endl;                                   // Funciona, ya esta, no tiene nada mas XD.
+                //Funcion de prueba a ver si funciona el metodo de la pt opcion 2
+                while(!caux.esVacia()){//Lo que se pretende es comprobar si funciona el cambio de estado imprimiendo la cola de almacen que es el siguiente paso
+                    paux = caux.desencolar();
+                    cambiarEstado(paux,QAlmacen,c0);
+                }
+                printQueue(QAlmacen);
                 break;
             case 3:
                 //////////////////////////////////////////////// Se muestra la cola QIniciados
