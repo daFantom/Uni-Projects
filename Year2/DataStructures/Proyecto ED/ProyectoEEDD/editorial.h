@@ -24,10 +24,9 @@ struct Pedido{
 };
 
 struct pedido_stock{
-    string cod_libro;
-    int unidades;
+    string codigo_libro;
+    int unidades=10;
 };
-//pedido_stock stock[MAX_TITULOS]
 
 // CLASE NODO
 
@@ -56,6 +55,7 @@ public:
     void encolar(Pedido v);
     Pedido desencolar();
     bool esVacia();
+    int getLength();
 private:
     pNodo frente, final;
 };
@@ -70,9 +70,12 @@ public:
     ~Pila();
     void apilar(Pedido v);
     Pedido desapilar();
+    bool esVacia();
+    int getLength();
+    string getTopCode();
 };
 
 Pedido genPedido(void);
-void printQueue(Cola&);
-
+void printQueue(Cola &c);
+void printPile(Pila &p, int);
 #endif // EDITORIAL_H_INCLUDED
