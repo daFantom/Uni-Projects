@@ -140,7 +140,7 @@ Pedido genPedido(){
     Pedido ped = {(rand()%6),id_pedido,cod_libro,materia,unidades,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return ped;
 }
-// funcion de los huevos que rompe el codigo y no funciona tal y como lo damos en clase ni como queremos OJALA SE MUERA CODEBLOCKS JDHFJHKSGAFLJ;SLKDJFKOWTHRUPIJ
+// Funcion que imprime los pedidos de una cola.
 void printQueue(Cola &c){
     Pedido p_aux; // Variable auxiliar Pedido para poder mostrar sus elementos por pantalla
     cout<<"-----------------------------------------------------"<<endl;
@@ -153,15 +153,17 @@ void printQueue(Cola &c){
             for(int i = 0; i<c.getLength();i++){
                 p_aux = c.desencolar(); // Si no esta vacia, pues vamos desencolando y mostrando los atributos de cada pedido hasta que se vacie.
                 cout<<setw(4)<<p_aux.id_editorial<<"|"<<setw(10)<<p_aux.id_pedido<<"|"<<setw(8)<<p_aux.cod_libro<<"|"<<setw(12)<<p_aux.materia<<"|"<<setw(4)<<p_aux.cantidad<<"|"<<setw(10)<<p_aux.estado<<"|"<<endl;
-                c.encolar(p_aux);
+                c.encolar(p_aux); // Lo volvemos a encolar, pues sabiendo la longitud de la cola, cada elemento volvera a su puesto original una vez terminado el bucle.
             }
         }
     cout << endl;
 }
-
+// Procedimiento que imprime los pedidos de una pila (o caja, en el contexto del ejercicio).
 void printPile(Pila &p, int libcode){
     Pila aux_pile;                              // Creamos una pila auxiliar que esta vacia.
     Pedido p_aux;                            // La misma funcion que la variable del procedimiento anterior.
+    int sizep = p.getLength();         // Utilizamos la longitud de la pila principal para desapilar los pedidos y mostrarlos.
+
     cout <<"==="<<" Caja de la libreria codigo "<<libcode<<" (de ultimo elemento a primero) "<<"==="<< endl;
     cout<< endl;
     cout<<"-----------------------------------------------------"<<endl;
@@ -171,20 +173,24 @@ void printPile(Pila &p, int libcode){
         cout<<"(vacia)"<<endl;        // Si la pila esta vacia de antes, mostramos este mensaje y no imprimimos nada mas.
     }
     else{
-        for(int i = 0;i<p.getLength();i++){
+        for(int i = 0;i<sizep;i++){
                 p_aux = p.desapilar();  // Si no esta vacia,  vamos desapilando hasta que se quede vacia.
                 cout<<setw(4)<<p_aux.id_editorial<<"|"<<setw(10)<<p_aux.id_pedido<<"|"<<setw(8)<<p_aux.cod_libro<<"|"<<setw(12)<<p_aux.materia<<"|"<<setw(4)<<p_aux.cantidad<<"|"<<setw(10)<<p_aux.estado<<"|"<<endl;
-                aux_pile.apilar(p_aux);
+                aux_pile.apilar(p_aux); // Los apilamos la pila auxiliar para tener la inversa.
         }
-    }
-    for(int j = 0; j<aux_pile.getLength();j++){
+   }
+
+   sizep = aux_pile.getLength(); // Le asignamos la longitud de la pila auxiliar para restaurar la pila original.
+
+    for(int j = 0; j<sizep;j++){
             p_aux = aux_pile.desapilar();
             p.apilar(p_aux);
     }
+
     cout<<endl;
 }
 
-//CAMBIAR ESTADO(SOLO PARA UN PEDIDO)
+//CAMBIAR ESTADO(SOLO PARA UN PEDIDO) [W.I.P]
 void cambiarEstado (Pedido &p, Cola &c, Pila &pila){//asi se reutiliza para cada uno de los "case" del main pasandole la cola siguiente. Y el pedido es el resultante de desencolar de la cola de la fase anterior.
     string e = p.estado;
     if (e.compare("Iniciado")==0){

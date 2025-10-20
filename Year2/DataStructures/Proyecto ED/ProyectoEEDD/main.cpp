@@ -46,6 +46,7 @@ int main(){
                 {
                     Pedido paux = genPedido();
                     QIniciado.encolar(paux);
+                    c0.apilar(paux);                                                    // Prueba para ver si funcionan las funciones que imprimen las pilas, en caso de no usarlo, comentarlo con CTRL+SHIFT+C tras haberlo elegido con el raton.
                 }
                 cout<< "QIniciados:"<<endl;                                 // Luego, mostramos lo que tiene dentro una vez generado los pedidos.
                 printQueue(QIniciado);
