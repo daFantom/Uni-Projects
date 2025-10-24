@@ -124,7 +124,7 @@ string Pila::getTopCode(){
 }
 // FUNCIONES Y PROCEDIMIENTOS
 
-// GENERAR PEDIDOS ALEATORIOS.
+//  ========================= FUNCION PARA GENERAR PEDIDOS ALEATORIOS =========================
 Pedido genPedido(string codebook, string materia){
     int unidades;
     unidades = rand()%20 + 1;
@@ -132,6 +132,8 @@ Pedido genPedido(string codebook, string materia){
     Pedido ped = {(rand()%6),id_pedido,codebook,materia,unidades,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return ped;
 }
+
+// =========================  FUNCION PARA LA PRECARGA DE PEDIDOS EN EL STOCK =========================
 pedido_stock genStock(){
     string materias[6] ={"Matematicas","Fisica","Tecnologia","Musica","Historia", "Lengua"};
     char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
@@ -142,10 +144,12 @@ pedido_stock genStock(){
      numaleat2=rand()%99; // Se coge un numero de entre 0 y 98 de forma pseualeatoria.
     string materia = materias[rand()%(sizeof(materias)/sizeof(materias[0]))];
     string cod_libro = to_string(numaleat1)+letraAleat+to_string(numaleat2);
-    pedido_stock pstock = {cod_libro,materia,10};
+    pedido_stock pstock = {cod_libro,materia,TAM_LOTE};
     return pstock;
 }
-// Funcion que imprime los pedidos de una cola.
+
+
+// ========================= PROCEDIMIENTO PARA IMPRIMIR LOS DATOS DE UNA COLA =========================
 void printQueue(Cola &c){
     int tam = c.getLength(); // POR SI ACASO, AUNQUE SE PODRIA UTILIZAR LA FUNCION c.getLength(); YA QUE SE VA ENCOLANDO Y EL TAMANIO NO CAMBIA.
     Pedido p_aux; // Variable auxiliar Pedido para poder mostrar sus elementos por pantalla
@@ -164,7 +168,7 @@ void printQueue(Cola &c){
         }
     cout << endl;
 }
-// Procedimiento que imprime los pedidos de una pila (o caja, en el contexto del ejercicio).
+// ========================= PROCEDIMIENTO PARA MOSTRAR LOS ELEMENTOS DE UNA PILA / CAJA =========================
 void printPile(Pila &p, int libcode){
     Pila aux_pile;                              // Creamos una pila auxiliar que esta vacia.
     Pedido p_aux;                            // La misma funcion que la variable del procedimiento anterior.
@@ -196,9 +200,14 @@ void printPile(Pila &p, int libcode){
     cout<<endl;
 }
 
-//CAMBIAR ESTADO(SOLO PARA UN PEDIDO) [W.I.P]
-void cambiarEstado (Cola &c){ //asi se reutiliza para cada uno de los "case" del main pasandole la cola siguiente. Y el pedido es el resultante de desencolar de la cola de la fase anterior.
+// ========================= CAMBIAR ESTADO(SOLO PARA UN PEDIDO) [W.I.P] =========================
+void cambiarEstado (){ //asi se reutiliza para cada uno de los "case" del main pasandole la cola siguiente. Y el pedido es el resultante de desencolar de la cola de la fase anterior.
+// ======= CODIGO ACTUALIZADO 24/10/2025 19:00 PM =======
+    cout << endl;
 
+
+
+// ======= CODIGO ANTERIOR =======
 //    string e = p.estado;
 //    if (e.compare("Iniciado")==0){
 //        p.estado = "Almacen";
@@ -212,5 +221,17 @@ void cambiarEstado (Cola &c){ //asi se reutiliza para cada uno de los "case" del
 //        p.estado = "Caja";
 //        pila.apilar(p);
 //    }
+}
+
+// ========================= ENCONTRAR UN PEDIDO EN EL STOCK =========================
+pedido_stock findInStock(Pedido p, pedido_stock arr[MAX_TITULOS]){
+    pedido_stock pstock_empty = {" "," ",0};
+    for(int i=0;i<MAX_TITULOS;i++){
+        if (arr[i].codigo_libro == p.cod_libro){
+            return arr[i];
+            break;
+        }
+    }
+    return pstock_empty;
 }
 

@@ -18,7 +18,7 @@ int main(){
     int opcion, amount,numLib;
     Cola QIniciado, QAlmacen, QImprenta, QListo;
     Pila c0,c1,c2,c3,c4,c5;
-    Pedido paux; //variable del case 2
+    Pedido paux; // Variable de Pedido auxiliar para las pruebas en la opcion 2.
     pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK, un array vacio que tendra una precarga de pedidos.
     for  ( int i = 0; i < MAX_TITULOS; i++){
         pedido_stock pstock = genStock(); // Precarga de los MAX_TITULOS pedidos. (En este caso MAX_TITULOS = 10)
@@ -60,14 +60,48 @@ int main(){
                 break;
             case 2:
                 cout << "Funciona"<<endl;
-                // vvvvvvv AQUI IRIA TODO LO DEL ESQUEMITA ESTE DE LOS HUEVOS DEL QUE ME PASE LA ULTIMA CLASE HACIENDO WAAAAAAAA vvvvvvv
-
-                //Funcion de prueba a ver si funciona el metodo de la pt opcion 2
-//                while(!caux.esVacia()){ //Lo que se pretende es comprobar si funciona el cambio de estado imprimiendo la cola de almacen que es el siguiente paso
-//                    paux = caux.desencolar();
-//                    cambiarEstado(paux,QAlmacen,c0);
-//                }
-//                printQueue(QAlmacen);
+                /* vvvvvvv AQUI IRIA TODO LO DEL ESQUEMITA ESTE DE LOS HUEVOS DEL QUE ME PASE LA ULTIMA CLASE HACIENDO WAAAAAAAA vvvvvvv
+                    24/10/25 19:48 Manu > El primer paso de QIniciado a QAlmacen funciona, lo malo es que si se utiliza un "if" en la parte del almacen, se ejecuta despues y es como si hiciese varios pasos, en cambio, si se utiliza "else if" solo se ejecuta
+                    si QIniciada esta vacia. Propuesta de solucion --> Hacerlo todo en un procedimiento que se basa en paux.estado y llamarlo 5 veces, por ejemplo, si el nombre del procedimiento es pasoColas(Cola &c) seria:
+                            pasoColas(QIniciado)
+                            pasoColas(QAlmacen)
+                            pasoColas(QImprenta)
+                            pasoColas(QListo)
+                    de tal manera que se ejecuta uno una vez de forma independiente y no habria que basarse en los condicionales aqui en el main, sino en el procedimiento. [buah me encanta cuando se me ocurren cosas mientras escribo pero no cuando pienso que huevos tengo]
+                */
+                if (!QIniciado.esVacia()){ // Comprueba si esta vacia incialmente.
+                    for(int i = 0; i < N_PEDIDOS_PASO; i++){
+                        if(QIniciado.esVacia()){
+                            break; // Si la lista QIniciados esta vacia, se pasa a ver la siguiente cola [?]
+                        }
+                        else{
+                            paux = QIniciado.desencolar(); // Si no esta vacia, desencolamos, cambiamos el estado del pedido a "Almacen" y lo encolamos en QAlmacen.
+                            paux.estado = "Almacen";
+                            QAlmacen.encolar(paux);
+                        }
+                    }
+                }
+                if(!QAlmacen.esVacia()){
+                    for(int i=0; i< N_PEDIDOS_PASO; i++){
+                        if(QAlmacen.esVacia()){
+                            break;
+                        }
+                        else{
+                            paux = QAlmacen.desencolar();
+                            pedido_stock aux = findInStock(paux, stock);
+                            if( (aux.codigo_libro != " ") && (paux.cantidad > aux.unidades) ){
+                                    aux.unidades-=paux.cantidad;
+                                    paux.estado = "Listo";
+                                    QListo.encolar(paux);
+                            }
+                            else{
+                                aux.unidades+=TAM_LOTE;
+                                paux.estado = "Imprenta";
+                                QImprenta.encolar(paux);
+                            }
+                        }
+                    }
+                }
                 break;
             case 3:
                 //////////////////////////////////////////////// Se muestra la cola QIniciados
