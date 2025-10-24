@@ -18,10 +18,16 @@ int main(){
     int opcion, amount,numLib;
     Cola QIniciado, QAlmacen, QImprenta, QListo;
     Pila c0,c1,c2,c3,c4,c5;
-    Cola caux = QIniciado;//variable del case 2
-    Pedido paux;//variable del case 2
-    pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK (no sirve para nada por ahora)
-    genStock(stock);
+    Pedido paux; //variable del case 2
+    pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK, un array vacio que tendra una precarga de pedidos.
+    for  ( int i = 0; i < MAX_TITULOS; i++){
+        pedido_stock pstock = genStock(); // Precarga de los MAX_TITULOS pedidos. (En este caso MAX_TITULOS = 10)
+        stock[i] = pstock; // Se pone en la posicion i (0, 1, 2, ..., 9) un struct de tipo pedido_stock
+    }
+        // mostrar stock [COMPROBACIONES CON LAS COLAS Y TAL, SE PUEDE QUITAR SI ESTAMOS SEGUROS (no lo estoy -manus)]
+    for(int i=0;i<MAX_TITULOS;i++){
+        cout << stock[i].codigo_libro<<"|"<< stock[i].materia<<"|"<< stock[i].unidades<< endl;
+    }
     cout << "Simulacion: Editorial"<< endl << endl;             // Menu inicial del usuario.
     do{
         cout << "===== MENU =====" << endl;
@@ -45,14 +51,16 @@ int main(){
                cout << endl;
                for(int i=0; i<amount; i++)                                      // Creamos amount pedidos de forma pseudoaleatoria y los vamos encolando en la cola QIniciado.
                 {
-                    Pedido paux = genPedido();
-                    QIniciado.encolar(paux);
+                    int premio = rand()%10;              // Se utiliza un valor del 0 al 9 por cada iteracion del bucle para elegir un elemento del stock y crear un pedido con sus datos. Me gustaria que sonase lo del PREMIOOO  de las ferias pero uno no puede conseguir todo lo que quiere :(
+                    Pedido ped_aux = genPedido(stock[premio].codigo_libro, stock[premio].materia);   // Se genera un pedido utilizando los datos de un pedido precargado stock y se encola en la cola QIniciados.
+                    QIniciado.encolar(ped_aux);
                 }
-                cout<< "QIniciados:"<<endl;                                 // Luego, mostramos lo que tiene dentro una vez generado los pedidos.
+                cout<< "QIniciados:"<<endl;        // Luego, mostramos lo que tiene dentro una vez generado los pedidos.
                 printQueue(QIniciado);
                 break;
             case 2:
                 cout << "Funciona"<<endl;
+                // vvvvvvv AQUI IRIA TODO LO DEL ESQUEMITA ESTE DE LOS HUEVOS DEL QUE ME PASE LA ULTIMA CLASE HACIENDO WAAAAAAAA vvvvvvv
 
                 //Funcion de prueba a ver si funciona el metodo de la pt opcion 2
 //                while(!caux.esVacia()){ //Lo que se pretende es comprobar si funciona el cambio de estado imprimiendo la cola de almacen que es el siguiente paso

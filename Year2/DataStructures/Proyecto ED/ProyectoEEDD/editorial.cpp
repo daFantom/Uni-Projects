@@ -125,22 +125,14 @@ string Pila::getTopCode(){
 // FUNCIONES Y PROCEDIMIENTOS
 
 // GENERAR PEDIDOS ALEATORIOS.
-Pedido genPedido(){
-    char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
-    int numaleat1,numaleat2,unidades;
-    char letraAleat;
-    letraAleat = abecedario[rand()%(sizeof(abecedario)/sizeof(abecedario[0]))]; // Se recoge una letra del Array 'abecedario' de manera randomizada.
+Pedido genPedido(string codebook, string materia){
+    int unidades;
     unidades = rand()%20 + 1;
-    numaleat1=rand()%999; // Se coge un numero de entre 0 y 998 de forma pseudoaleatoria.
-    numaleat2=rand()%99; // Se coge un numero de entre 0 y 98 de forma pseualeatoria.
-    string materias[6] ={"Matematicas","Fisica","Tecnologia","Musica","Historia", "Lengua"};
     string id_pedido = "P"+to_string(rand()%99999); // el rand() representa la parte numerica del codigo.
-    string cod_libro = to_string(numaleat1)+letraAleat+to_string(numaleat2);
-    string materia = materias[rand()%(sizeof(materias)/sizeof(materias[0]))]; // Dividimos la longitud del array (en bytes) con la longitud del primer elemenento para que nos devuelva la cantidad de elementos del array.
-    Pedido ped = {(rand()%6),id_pedido,cod_libro,materia,unidades,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
+    Pedido ped = {(rand()%6),id_pedido,codebook,materia,unidades,"Iniciado"}; // Cuando se crea un pedido, siempre empieza en iniciado :D
     return ped;
 }
-void genStock(pedido_stock stock[MAX_TITULOS]){
+pedido_stock genStock(){
     string materias[6] ={"Matematicas","Fisica","Tecnologia","Musica","Historia", "Lengua"};
     char abecedario[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}; // Todo el abecedario para elegir una letra de forma aleatoria.
      int numaleat1,numaleat2;
@@ -150,14 +142,8 @@ void genStock(pedido_stock stock[MAX_TITULOS]){
      numaleat2=rand()%99; // Se coge un numero de entre 0 y 98 de forma pseualeatoria.
     string materia = materias[rand()%(sizeof(materias)/sizeof(materias[0]))];
     string cod_libro = to_string(numaleat1)+letraAleat+to_string(numaleat2);
-    for(int i=0;i<MAX_TITULOS;i++){
-        pedido_stock ps = {cod_libro,materia,10};
-        stock[i] = ps;
-    }
-    // mostrar stock
-        for(int i=0;i<MAX_TITULOS;i++){
-        cout << stock[i].codigo_libro<<"|"<< stock[i].materia<<"|"<< stock[i].unidades<< endl;
-    }
+    pedido_stock pstock = {cod_libro,materia,10};
+    return pstock;
 }
 // Funcion que imprime los pedidos de una cola.
 void printQueue(Cola &c){

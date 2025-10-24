@@ -76,11 +76,11 @@ public:
     string getTopCode();
 };
 
-Pedido genPedido(void);
+Pedido genPedido(string,string);
 void printQueue(Cola&);
 void cambiarEstado(Pedido&,Cola&,Pila&);
 
 void printQueue(Cola &c);
 void printPile(Pila &p, int);
-void genStock(pedido_stock stock[MAX_TITULOS]);
+pedido_stock genStock(void);
 #endif // EDITORIAL_H_INCLUDED
