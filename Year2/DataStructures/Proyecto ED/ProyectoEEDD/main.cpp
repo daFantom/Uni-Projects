@@ -21,6 +21,7 @@ int main(){
     Cola caux = QIniciado;//variable del case 2
     Pedido paux;//variable del case 2
     pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK (no sirve para nada por ahora)
+    genStock(stock);
     cout << "Simulacion: Editorial"<< endl << endl;             // Menu inicial del usuario.
     do{
         cout << "===== MENU =====" << endl;
@@ -46,19 +47,19 @@ int main(){
                 {
                     Pedido paux = genPedido();
                     QIniciado.encolar(paux);
-                    c0.apilar(paux);                                                    // Prueba para ver si funcionan las funciones que imprimen las pilas, en caso de no usarlo, comentarlo con CTRL+SHIFT+C tras haberlo elegido con el raton.
                 }
                 cout<< "QIniciados:"<<endl;                                 // Luego, mostramos lo que tiene dentro una vez generado los pedidos.
                 printQueue(QIniciado);
                 break;
             case 2:
-                cout << "Funciona"<<endl;                                   // Funciona, ya esta, no tiene nada mas XD.
+                cout << "Funciona"<<endl;
+
                 //Funcion de prueba a ver si funciona el metodo de la pt opcion 2
-                while(!caux.esVacia()){//Lo que se pretende es comprobar si funciona el cambio de estado imprimiendo la cola de almacen que es el siguiente paso
-                    paux = caux.desencolar();
-                    cambiarEstado(paux,QAlmacen,c0);
-                }
-                printQueue(QAlmacen);
+//                while(!caux.esVacia()){ //Lo que se pretende es comprobar si funciona el cambio de estado imprimiendo la cola de almacen que es el siguiente paso
+//                    paux = caux.desencolar();
+//                    cambiarEstado(paux,QAlmacen,c0);
+//                }
+//                printQueue(QAlmacen);
                 break;
             case 3:
                 //////////////////////////////////////////////// Se muestra la cola QIniciados

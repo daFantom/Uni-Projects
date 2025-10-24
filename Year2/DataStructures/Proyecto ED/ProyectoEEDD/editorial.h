@@ -25,7 +25,8 @@ struct Pedido{
 
 struct pedido_stock{
     string codigo_libro;
-    int unidades=10;
+    string materia;
+    int unidades;
 };
 
 // CLASE NODO
@@ -81,4 +82,5 @@ void cambiarEstado(Pedido&,Cola&,Pila&);
 
 void printQueue(Cola &c);
 void printPile(Pila &p, int);
+void genStock(pedido_stock stock[MAX_TITULOS]);
 #endif // EDITORIAL_H_INCLUDED
