@@ -235,3 +235,20 @@ pedido_stock findInStock(Pedido p, pedido_stock arr[MAX_TITULOS]){
     return pstock_empty;
 }
 
+// ========================= GENERAR PASO W.I.P =========================
+
+void mvItemsQueue(Cola c){
+    Pedido order_aux = c.desencolar();
+    if(order_aux.estado=="Iniciado"){
+        cout << "Iniciado" << endl;
+    }
+    else if(order_aux.estado=="Almacen"){
+        cout << "Almacen" << endl;
+    }
+    else if(order_aux.estado=="Imprenta"){
+        cout << "Imprenta" << endl;
+    }
+    else{
+        cout << "No se" << endl;
+    }
+}

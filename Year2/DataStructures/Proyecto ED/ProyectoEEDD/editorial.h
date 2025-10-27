@@ -84,4 +84,5 @@ void printQueue(Cola &c);
 void printPile(Pila &p, int);
 pedido_stock genStock(void);
 pedido_stock findInStock(Pedido, pedido_stock[]);
+void mvItemsQueue(Cola &c);
 #endif // EDITORIAL_H_INCLUDED
