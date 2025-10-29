@@ -209,6 +209,7 @@ int findInStock(Pedido p, pedido_stock arr[]){
         }
         index++;
     }
+    return 0;
 }
 
 // ========================= GENERAR PASO W.I.P =========================
@@ -228,9 +229,9 @@ void mvItemsQueue(Cola &qIni, Cola &qAlma, Cola &qImpre, Cola &qListo, Pila caja
                 aux = qListo.desencolar();
                 int lib = aux.id_editorial;
                 if((cajas[lib].getLength())==5){
-                    cout << "Caja llena, vaciando..."<<endl;
+                    cout << "Caja "<<lib<<", vaciando..."<<endl;
                     cajas[lib].~Pila();
-                    cout<<"Insertando pedido..."<<endl;
+                    cout<<"Insertando pedido "<<aux.id_pedido<<"..."<<endl;
                     aux.estado="Caja";
                     cajas[lib].apilar(aux);
                 }

@@ -24,10 +24,6 @@ int main(){
         pedido_stock pstock = genStock(); // Precarga de los MAX_TITULOS pedidos. (En este caso MAX_TITULOS = 10)
         stock[i] = pstock; // Se pone en la posicion i (0, 1, 2, ..., 9) un struct de tipo pedido_stock
     }
-        // mostrar stock [COMPROBACIONES CON LAS COLAS Y TAL, SE PUEDE QUITAR SI ESTAMOS SEGUROS (no lo estoy -manus)]
-    for(int i=0;i<MAX_TITULOS;i++){
-        cout << stock[i].codigo_libro<<"|"<< stock[i].materia<<"|"<< stock[i].unidades<< endl;
-    }
     cout << "Simulacion: Editorial"<< endl << endl;             // Menu inicial del usuario.
     do{
         cout << "===== MENU =====" << endl;
