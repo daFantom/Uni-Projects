@@ -17,7 +17,7 @@ int main(){
     srand(time(NULL));
     int opcion, amount,numLib;
     Cola QIniciado, QAlmacen, QImprenta, QListo;
-    Pila c0,c1,c2,c3,c4,c5;
+    Pila cajas[LIBRERIAS];
     Pedido paux; // Variable de Pedido auxiliar para las pruebas en la opcion 2.
     pedido_stock stock[MAX_TITULOS] = {}; // Inicializacion del STOCK, un array vacio que tendra una precarga de pedidos.
     for  ( int i = 0; i < MAX_TITULOS; i++){
@@ -59,49 +59,7 @@ int main(){
                 printQueue(QIniciado);
                 break;
             case 2:
-                cout << "Funciona"<<endl;
-                /* vvvvvvv AQUI IRIA TODO LO DEL ESQUEMITA ESTE DE LOS HUEVOS DEL QUE ME PASE LA ULTIMA CLASE HACIENDO WAAAAAAAA vvvvvvv
-                    24/10/25 19:48 Manu > El primer paso de QIniciado a QAlmacen funciona, lo malo es que si se utiliza un "if" en la parte del almacen, se ejecuta despues y es como si hiciese varios pasos, en cambio, si se utiliza "else if" solo se ejecuta
-                    si QIniciada esta vacia. Propuesta de solucion --> Hacerlo todo en un procedimiento que se basa en paux.estado y llamarlo 5 veces, por ejemplo, si el nombre del procedimiento es pasoColas(Cola &c) seria:
-                            pasoColas(QIniciado)
-                            pasoColas(QAlmacen)
-                            pasoColas(QImprenta)
-                            pasoColas(QListo)
-                    de tal manera que se ejecuta uno una vez de forma independiente y no habria que basarse en los condicionales aqui en el main, sino en el procedimiento. [buah me encanta cuando se me ocurren cosas mientras escribo pero no cuando pienso que huevos tengo]
-                */
-                if (!QIniciado.esVacia()){ // Comprueba si esta vacia incialmente.
-                    for(int i = 0; i < N_PEDIDOS_PASO; i++){
-                        if(QIniciado.esVacia()){
-                            break; // Si la lista QIniciados esta vacia, se pasa a ver la siguiente cola [?]
-                        }
-                        else{
-                            paux = QIniciado.desencolar(); // Si no esta vacia, desencolamos, cambiamos el estado del pedido a "Almacen" y lo encolamos en QAlmacen.
-                            paux.estado = "Almacen";
-                            QAlmacen.encolar(paux);
-                        }
-                    }
-                }
-                if(!QAlmacen.esVacia()){
-                    for(int i=0; i< N_PEDIDOS_PASO; i++){
-                        if(QAlmacen.esVacia()){
-                            break;
-                        }
-                        else{
-                            paux = QAlmacen.desencolar();
-                            pedido_stock aux = findInStock(paux, stock);
-                            if( (aux.codigo_libro != " ") && (paux.cantidad > aux.unidades) ){
-                                    aux.unidades-=paux.cantidad;
-                                    paux.estado = "Listo";
-                                    QListo.encolar(paux);
-                            }
-                            else{
-                                aux.unidades+=TAM_LOTE;
-                                paux.estado = "Imprenta";
-                                QImprenta.encolar(paux);
-                            }
-                        }
-                    }
-                }
+                mvItemsQueue(QIniciado, QAlmacen, QImprenta, QListo, cajas, stock);
                 break;
             case 3:
                 //////////////////////////////////////////////// Se muestra la cola QIniciados
@@ -118,36 +76,44 @@ int main(){
                 printQueue(QListo);
                 //////////////////////////////////////////////// Fin mostrar colas.
                 cout<<"=== CAJAS ===" << endl;
-                cout << "Libreria 0 --> "<< "tam = " <<c0.getLength() <<", codigo cima --> " << c0.getTopCode() << endl;
-                cout << "Libreria 1 --> "<< "tam = " <<c1.getLength() <<", codigo cima --> " << c1.getTopCode() << endl;
-                cout << "Libreria 2 --> "<< "tam = " <<c2.getLength() <<", codigo cima --> " << c2.getTopCode() << endl;
-                cout << "Libreria 3 --> "<< "tam = " <<c3.getLength() <<", codigo cima --> " << c3.getTopCode() << endl;
-                cout << "Libreria 4 --> "<< "tam = " <<c4.getLength() <<", codigo cima --> " << c4.getTopCode() << endl;
-                cout << "Libreria 5 --> "<< "tam = " <<c5.getLength() <<", codigo cima --> " << c5.getTopCode() << endl;
+                cout << "Libreria 0 --> "<< "tam = " <<cajas[0].getLength() <<", codigo cima --> " << cajas[0].getTopCode() << endl;
+                cout << "Libreria 1 --> "<< "tam = " <<cajas[1].getLength() <<", codigo cima --> " << cajas[1].getTopCode() << endl;
+                cout << "Libreria 2 --> "<< "tam = " <<cajas[2].getLength() <<", codigo cima --> " << cajas[2].getTopCode() << endl;
+                cout << "Libreria 3 --> "<< "tam = " <<cajas[3].getLength() <<", codigo cima --> " << cajas[3].getTopCode() << endl;
+                cout << "Libreria 4 --> "<< "tam = " <<cajas[4].getLength() <<", codigo cima --> " << cajas[4].getTopCode() << endl;
+                cout << "Libreria 5 --> "<< "tam = " <<cajas[5].getLength() <<", codigo cima --> " << cajas[5].getTopCode() << endl;
                 cout<< endl;
-;                break;
+                 //////////////////////////////////////////////// Mostrar Stock
+                 printStock(stock);
+                break;
             case 4:
                 cout<<"Indique el numero de libreria: ";               // Esto es para ver los contenidos de una caja de una libreria. No implementado aun jiji. (Probar otro switch-case en main y en una funcion)
                 cin >> numLib;
                 cout << endl;
                 switch(numLib){
                     case 0:
-                        printPile(c0,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 0 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     case 1:
-                        printPile(c1,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 1 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     case 2:
-                        printPile(c2,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 2 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     case 3:
-                        printPile(c3,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 3 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     case 4:
-                        printPile(c4,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 4 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     case 5:
-                        printPile(c5,numLib);
+                        cout <<"==="<<" Caja de la libreria codigo 5 (de ultimo elemento a primero) "<<"==="<< endl << endl;
+                        printPile(cajas[numLib]);
                         break;
                     }
         }

@@ -62,6 +62,9 @@ int Cola::getLength(){
      return len;
 }
 
+Pedido Cola::getFront(){
+    return frente->valor;
+}
 // ====================== METODOS PILA ======================
 
 //Destructor de la Pila
@@ -123,7 +126,6 @@ string Pila::getTopCode(){
     }
 }
 // FUNCIONES Y PROCEDIMIENTOS
-
 //  ========================= FUNCION PARA GENERAR PEDIDOS ALEATORIOS =========================
 Pedido genPedido(string codebook, string materia){
     int unidades;
@@ -169,13 +171,10 @@ void printQueue(Cola &c){
     cout << endl;
 }
 // ========================= PROCEDIMIENTO PARA MOSTRAR LOS ELEMENTOS DE UNA PILA / CAJA =========================
-void printPile(Pila &p, int libcode){
+void printPile(Pila &p){
     Pila aux_pile;                              // Creamos una pila auxiliar que esta vacia.
     Pedido p_aux;                            // La misma funcion que la variable del procedimiento anterior.
     int sizep = p.getLength();         // Utilizamos la longitud de la pila principal para desapilar los pedidos y mostrarlos.
-
-    cout <<"==="<<" Caja de la libreria codigo "<<libcode<<" (de ultimo elemento a primero) "<<"==="<< endl;
-    cout<< endl;
     cout<<"-----------------------------------------------------"<<endl;
     cout<<setw(4)<<"Lib"<<"|"<<setw(10)<<"ID_Pedido"<<"|"<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(4)<<"U"<<"|"<<setw(10)<<"Estado"<<"|"<<endl;
     cout<<"-----------------------------------------------------"<<endl;
@@ -200,55 +199,98 @@ void printPile(Pila &p, int libcode){
     cout<<endl;
 }
 
-// ========================= CAMBIAR ESTADO(SOLO PARA UN PEDIDO) [W.I.P] =========================
-void cambiarEstado (){ //asi se reutiliza para cada uno de los "case" del main pasandole la cola siguiente. Y el pedido es el resultante de desencolar de la cola de la fase anterior.
-// ======= CODIGO ACTUALIZADO 24/10/2025 19:00 PM =======
-    cout << endl;
-
-
-
-// ======= CODIGO ANTERIOR =======
-//    string e = p.estado;
-//    if (e.compare("Iniciado")==0){
-//        p.estado = "Almacen";
-//        c.encolar(p);
-//    }
-//    if (e.compare("Almacen")==0){
-//        p.estado = "Listo";
-//        c.encolar(p);
-//    }
-//    if (e.compare("Listo")==0){
-//        p.estado = "Caja";
-//        pila.apilar(p);
-//    }
-}
-
 // ========================= ENCONTRAR UN PEDIDO EN EL STOCK =========================
-pedido_stock findInStock(Pedido p, pedido_stock arr[MAX_TITULOS]){
-    pedido_stock pstock_empty = {" "," ",0};
-    for(int i=0;i<MAX_TITULOS;i++){
+int findInStock(Pedido p, pedido_stock arr[]){
+    int index = 0;
+    for(int i =0;i<MAX_TITULOS;i++){
         if (arr[i].codigo_libro == p.cod_libro){
-            return arr[i];
+            return index;
             break;
         }
+        index++;
     }
-    return pstock_empty;
 }
 
 // ========================= GENERAR PASO W.I.P =========================
 
-void mvItemsQueue(Cola c){
-    Pedido order_aux = c.desencolar();
-    if(order_aux.estado=="Iniciado"){
-        cout << "Iniciado" << endl;
+/* ~~~~~~~~~~~~~~~~~~~ PROBLEMAS ~~~~~~~~~~~~~~~~~~~
+    - Lo que conseguimos o al utilizar findInStock es un objeto de tipo pedido_stock del Stock, sin embargo no lo estamos modificando como tal, solo una copia suya
+    luego habria que conseguir su posicion en el array y modificarlo. EUREKA DSLFILGSDFLKJLS
+*/
+
+
+void mvItemsQueue(Cola &qIni, Cola &qAlma, Cola &qImpre, Cola &qListo, Pila cajas[], pedido_stock stock[]){
+    Pedido aux;
+    int pos_stock;
+    ////////////////////////////////////////////// Probamos el paso en la cola de Listos para llevar pedidos a una caja en concreto.
+    if(!qListo.esVacia()){
+        for(int i=0;(i<N_PEDIDOS_PASO)&&(!qListo.esVacia());i++){
+                aux = qListo.desencolar();
+                int lib = aux.id_editorial;
+                if((cajas[lib].getLength())==5){
+                    cout << "Caja llena, vaciando..."<<endl;
+                    cajas[lib].~Pila();
+                    cout<<"Insertando pedido..."<<endl;
+                    aux.estado="Caja";
+                    cajas[lib].apilar(aux);
+                }
+                else{
+                    aux.estado="Caja";
+                    cajas[lib].apilar(aux);
+                }
+        }
     }
-    else if(order_aux.estado=="Almacen"){
-        cout << "Almacen" << endl;
+    ////////////////////////////////////////////// Probamos el paso en la cola de 'Imprenta' para llevar pedidos a la cola de 'Listo' o devolverlos a 'Imprenta' si da el caso.
+    if(!qImpre.esVacia()){
+        for(int i=0;(i<N_PEDIDOS_PASO)&&(!qImpre.esVacia());i++){
+            aux = qImpre.desencolar();
+            pos_stock = findInStock(aux,stock); // Encontramos el codigo del libro del que se ha generado el pedido y lo guardamos en aux_stock.
+
+            // Si la cantidad en stock de este tipo de libros es mayor que la que se pide, entonces restamos y encolamos.
+            if(stock[pos_stock].unidades>aux.cantidad){
+                stock[pos_stock].unidades -= aux.cantidad;
+                aux.estado = "Listo";
+                qListo.encolar(aux);
+            }
+            // Si no, lo volvemos a encolar en 'Imprenta' y agregamos 10 (o TAM_LOTE) a la cantidad que se encuentra en stock.
+            else{
+                qImpre.encolar(aux);
+                stock[pos_stock].unidades += TAM_LOTE;
+            }
+        }
     }
-    else if(order_aux.estado=="Imprenta"){
-        cout << "Imprenta" << endl;
+    if(!qAlma.esVacia()){
+        for(int i=0;(i<N_PEDIDOS_PASO)&&(!qAlma.esVacia());i++){
+            aux = qAlma.desencolar();
+            pos_stock = findInStock(aux,stock);
+            if(stock[pos_stock].unidades>aux.cantidad){
+                stock[pos_stock].unidades-=aux.cantidad;
+                aux.estado="Listo";
+                qListo.encolar(aux);
+            }
+            else{
+                stock[pos_stock].unidades+=TAM_LOTE;
+                aux.estado="Imprenta";
+                qImpre.encolar(aux);
+            }
+        }
     }
-    else{
-        cout << "No se" << endl;
+    if(!qIni.esVacia()){
+        for(int i=0;(i<N_PEDIDOS_PASO)&&(!qIni.esVacia());i++){
+            aux = qIni.desencolar();
+            aux.estado="Almacen";
+            qAlma.encolar(aux);
+        }
     }
+}
+
+// ========== IMPRIMIR STOCK ==========
+void printStock(pedido_stock arr[MAX_TITULOS]){
+    cout << "== STOCK ==" << endl;
+    cout<<setw(8)<<"Codigo"<<"|"<<setw(12)<<"Materia"<<"|"<<setw(10)<<"Unidades"<<endl;
+    cout<<"----------------------------------"<<endl;
+    for (int i=0;i<MAX_TITULOS;i++){
+        cout<<setw(8)<<arr[i].codigo_libro<<"|"<<setw(12)<<arr[i].materia<<"|"<<setw(8)<<arr[i].unidades<<endl;
+    }
+    cout << endl;
 }

@@ -57,6 +57,7 @@ public:
     Pedido desencolar();
     bool esVacia();
     int getLength();
+    Pedido getFront();
 private:
     pNodo frente, final;
 };
@@ -79,10 +80,10 @@ public:
 Pedido genPedido(string,string);
 void printQueue(Cola&);
 void cambiarEstado(Pedido&,Cola&,Pila&);
-
 void printQueue(Cola &c);
-void printPile(Pila &p, int);
+void printPile(Pila &p);
 pedido_stock genStock(void);
-pedido_stock findInStock(Pedido, pedido_stock[]);
-void mvItemsQueue(Cola &c);
+int findInStock(Pedido, pedido_stock[]);
+void mvItemsQueue(Cola &qIni, Cola &qAlma, Cola &qImpre, Cola &qListo, Pila cajas[], pedido_stock stock[]);
+void printStock(pedido_stock arr[MAX_TITULOS]);
 #endif // EDITORIAL_H_INCLUDED
